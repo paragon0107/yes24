@@ -2,6 +2,7 @@ package com.seminar.yes24.service;
 
 import com.seminar.yes24.domain.Show;
 import com.seminar.yes24.dto.response.ShowDataDto;
+import com.seminar.yes24.dto.response.ShowRankingDto;
 import com.seminar.yes24.repository.ShowRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -28,4 +29,6 @@ public class ShowService {
                         show.getImg()))
                 .collect(Collectors.toList());
     }
+
+
 }
