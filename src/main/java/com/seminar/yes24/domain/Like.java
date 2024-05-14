@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class Like {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "memeber_runshow_like_id")
+    @Column(name = "member_runshow_like_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
