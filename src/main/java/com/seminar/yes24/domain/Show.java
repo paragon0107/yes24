@@ -8,11 +8,12 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @Table(name = "show")
+@Inheritance(strategy = InheritanceType.JOINED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Show {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "show")
+    @Column(name = "show_id")
     private Long id;
 
     @Column(name ="title" ,nullable = false)

@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RunShow extends Show{
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "runshow_id")
     private Long id;
 
