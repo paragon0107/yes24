@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "memeber_runshow_booking_id")
+    @Column(name = "member_runshow_booking_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
