@@ -18,13 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class RunShowController {
 
     private final RunShowService runShowService;
-    @GetMapping("/runShow/{runShowId}")
+    @GetMapping("/run-show/{runShowId}")
     public ResponseDto<RunShowFindDto> getRunShowDetail(
             @PathVariable Long runShowId
     ){
         return ResponseDto.ok(runShowService.findRunShowById(runShowId));
     }
-    @PostMapping("/runShow/{runShowId}")
+    @PostMapping("/run-show/book/{runShowId}")
     public ResponseDto<Long> bookRunShow(
             @RequestHeader Long memberId,
             @PathVariable Long runShowId
