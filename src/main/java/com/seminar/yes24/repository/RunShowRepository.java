@@ -24,4 +24,6 @@ public interface RunShowRepository extends JpaRepository<RunShow, Long> {
                 .findFirst()
                 .orElseThrow(() -> new CustomException(ErrorCode.RUNSHOW_NOT_FOUND));
     }
+    List<RunShow> findByShowId(Long showId);
+    List<RunShow> findByLocationContaining(String location);
 }
