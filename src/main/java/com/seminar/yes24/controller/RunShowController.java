@@ -25,12 +25,12 @@ public class RunShowController {
         return ResponseDto.ok(runShowService.findRunShowById(runShowId));
     }
     @PostMapping("/runShow/{runShowId}")
-    public ResponseDto<?> bookRunShow(
+    public ResponseDto<Long> bookRunShow(
             @RequestHeader Long memberId,
             @PathVariable Long runShowId
     ){
-        return ResponseDto.created(runShowService.saveBookingById(runShowId));
+        return ResponseDto.created(runShowService.saveBookingById(memberId,runShowId));
     }
-dsd
+
 
 }
