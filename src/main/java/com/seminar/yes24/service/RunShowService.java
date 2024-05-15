@@ -4,6 +4,7 @@ import com.seminar.yes24.domain.Booking;
 import com.seminar.yes24.domain.Member;
 import com.seminar.yes24.domain.RunShow;
 import com.seminar.yes24.dto.response.RunShowFindDto;
+import com.seminar.yes24.repository.MemberRepository;
 import com.seminar.yes24.repository.RunShowRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,9 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class RunShowService {
-
+    private final MemberRepository memberRepository;
     private final RunShowRepository runShowRepository;
-    private final BookService bookService;
     private final MemberService memberService;
     private final RunShowService runShowService;
     public RunShowFindDto findRunShowById(Long runShowId){
@@ -23,7 +23,7 @@ public class RunShowService {
     }
 
     public Long saveBookingById(Long memberId,Long runShowId){
-        Member member = memberService.findMemberById(memberId);
+        Member member = memberRepository.findMemberById(memberId);
         RunShow runShow = runShowRepository.findRunShowById(runShowId);
         return Booking.create(member,runShow).getId();
     }
