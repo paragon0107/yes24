@@ -19,7 +19,7 @@ public class ShowService {
     private final ShowRepository showRepository;
 
     @Transactional(readOnly = true)
-    public List<ShowDataDto> getMainCarasel(){
+    public List<ShowDataDto> getMainCarousel(){
         Page<Show> page = showRepository.findAll(PageRequest.of(0, 12));
         return page.getContent().stream()
                 .map(show -> new ShowDataDto(
@@ -30,5 +30,9 @@ public class ShowService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
+    public List<List<ShowRankingDto>> getShowRanking(){
 
+        return null;
+    }
 }

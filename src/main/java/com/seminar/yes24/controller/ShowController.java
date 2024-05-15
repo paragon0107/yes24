@@ -6,20 +6,22 @@ import com.seminar.yes24.dto.response.ShowRankingDto;
 import com.seminar.yes24.service.ShowService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/v1")
 public class ShowController {
     private final ShowService showService;
 
     @GetMapping("/show-main")
     public ResponseDto<List<ShowDataDto>> getMainCarousel(){
-        return ResponseDto.ok("성공적으로 메일 캐러셀 정보를 조회했습니다.", showService.getMainCarasel());
+        return ResponseDto.ok("성공적으로 메일 캐러셀 정보를 조회했습니다.", showService.getMainCarousel());
     }
-    public ResponseDto<List<ShowRankingDto>> getShowRanking(){
+    public ResponseDto<List<List<ShowRankingDto>>> getShowRanking(){
         return ResponseDto.ok(" ",showService.getShowRanking());
     }
 }

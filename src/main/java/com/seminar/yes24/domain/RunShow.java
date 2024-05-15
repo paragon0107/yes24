@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class RunShow extends Show{
 
     @Column(name = "period" ,nullable = false)
-    private int period;
+    private String period;
 
     @Column(name = "place", nullable = false)
     private String place;

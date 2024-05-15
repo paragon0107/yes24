@@ -9,25 +9,22 @@ import org.springframework.lang.Nullable;
 public record ResponseDto<T>(
         @JsonIgnore HttpStatus httpStatus,
         @NotNull boolean success,
-        @NotNull String message,
         @Nullable T data,
         @Nullable ExceptionDto error
 ) {
-    public static <T> ResponseDto<T> ok(String message, T data) {
+    public static <T> ResponseDto<T> ok(T data) {
         return new ResponseDto<>(
                 HttpStatus.OK,
                 true,
-                message,
                 data,
                 null
         );
     }
 
-    public static <T> ResponseDto<T> created(String message, T data) {
+    public static <T> ResponseDto<T> created(T data) {
         return new ResponseDto<>(
                 HttpStatus.CREATED,
                 true,
-                message,
                 data,
                 null
         );
@@ -37,7 +34,6 @@ public record ResponseDto<T>(
         return new ResponseDto<>(
                 e.getErrorCode().getHttpStatus(),
                 false,
-                message,
                 null,
                 ExceptionDto.of(e.getErrorCode())
         );
