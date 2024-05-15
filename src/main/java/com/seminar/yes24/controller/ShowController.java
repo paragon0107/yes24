@@ -19,9 +19,9 @@ public class ShowController {
 
     @GetMapping("/show-main")
     public ResponseDto<List<ShowDataDto>> getMainCarousel(){
-        return ResponseDto.ok("성공적으로 메일 캐러셀 정보를 조회했습니다.", showService.getMainCarousel());
+        return ResponseDto.ok( showService.getMainCarousel());
     }
     public ResponseDto<List<List<ShowRankingDto>>> getShowRanking(){
-        return ResponseDto.ok(" ",showService.getShowRanking());
+        return ResponseDto.ok(showService.getShowRanking());
     }
 }
