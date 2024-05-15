@@ -7,7 +7,6 @@ import com.seminar.yes24.exception.ErrorCode;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
-
     default Member findMemberById(Long id) {
         return findById(id)
                 .orElseThrow(

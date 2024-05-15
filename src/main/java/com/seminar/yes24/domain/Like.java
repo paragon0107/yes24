@@ -24,14 +24,10 @@ public class Like {
     @JoinColumn(name = "runshow_id")
     private RunShow runShow;
 
-
-
-
     public static Like create(Member member, RunShow runShow){
         Like like = new Like();
         like.member = member;
         like.runShow = runShow;
         return like;
     }
-
 }
