@@ -11,7 +11,7 @@ public interface RunShowRepository extends JpaRepository<RunShow, Long> {
     default RunShow findRunShowById(Long id) {
         return findById(id)
                 .orElseThrow(
-                        () -> new CustomException(ErrorCode.RUNSHOW_NOR_FOUND)
+                        () -> new CustomException(ErrorCode.RUNSHOW_NOT_FOUND)
                 );
     }
 }
