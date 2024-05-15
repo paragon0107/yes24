@@ -17,7 +17,7 @@ import java.util.List;
 public class ShowController {
     private final ShowService showService;
 
-    @GetMapping("/show-main")
+    @GetMapping("/show/main")
     public ResponseDto<List<ShowDataDto>> getMainCarousel(){
         return ResponseDto.ok( showService.getMainCarousel());
     }
