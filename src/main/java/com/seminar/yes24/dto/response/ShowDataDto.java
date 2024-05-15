@@ -4,6 +4,8 @@ public record ShowDataDto(
         Long id,
         String title,
         String subTitle,
-        String image
+        String image,
+        String period,
+        String place
 ) {
 }

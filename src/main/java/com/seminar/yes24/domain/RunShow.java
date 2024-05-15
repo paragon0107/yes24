@@ -9,7 +9,15 @@ import lombok.NoArgsConstructor;
 @Getter
 @Table(name = "runshow")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class RunShow extends Show{
+public class RunShow{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "runshow_id")
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "show_id", insertable = false, updatable = false)
+    private Show show;
 
     @Column(name = "period" ,nullable = false)
     private String period;

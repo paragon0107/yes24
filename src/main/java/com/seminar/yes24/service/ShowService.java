@@ -1,8 +1,10 @@
 package com.seminar.yes24.service;
 
+import com.seminar.yes24.domain.RunShow;
 import com.seminar.yes24.domain.Show;
 import com.seminar.yes24.dto.response.ShowDataDto;
 import com.seminar.yes24.dto.response.ShowRankingDto;
+import com.seminar.yes24.repository.RunShowRepository;
 import com.seminar.yes24.repository.ShowRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -17,16 +19,23 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ShowService {
     private final ShowRepository showRepository;
+    private final RunShowRepository runShowRepository;
 
     @Transactional(readOnly = true)
-    public List<ShowDataDto> getMainCarousel(){
-        Page<Show> page = showRepository.findAll(PageRequest.of(0, 12));
-        return page.getContent().stream()
-                .map(show -> new ShowDataDto(
-                        show.getId(),
-                        show.getTitle(),
-                        show.getSubTitle(),
-                        show.getImg()))
+    public List<ShowDataDto> getMainCarasel() {
+        List<Show> shows = showRepository.findAll(PageRequest.of(0, 5)).getContent();
+        return shows.stream()
+                .map(show -> {
+                    RunShow fastRunShow = runShowRepository.findEarliestRunShowByShowId(show.getId());
+                    return new ShowDataDto(
+                            show.getId(),
+                            show.getTitle(),
+                            show.getSubTitle(),
+                            show.getImg(),
+                            fastRunShow.getPeriod(),
+                            fastRunShow.getPlace()
+                    );
+                })
                 .collect(Collectors.toList());
     }
 

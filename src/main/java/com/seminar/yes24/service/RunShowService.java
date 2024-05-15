@@ -3,13 +3,19 @@ package com.seminar.yes24.service;
 import com.seminar.yes24.domain.Booking;
 import com.seminar.yes24.domain.Member;
 import com.seminar.yes24.domain.RunShow;
+import com.seminar.yes24.domain.Show;
 import com.seminar.yes24.dto.response.RunShowFindDto;
+import com.seminar.yes24.dto.response.RunShowSearchDto;
 import com.seminar.yes24.repository.BookingRepository;
 import com.seminar.yes24.repository.MemberRepository;
 import com.seminar.yes24.repository.RunShowRepository;
+import com.seminar.yes24.repository.ShowRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -18,9 +24,10 @@ public class RunShowService {
     private final MemberRepository memberRepository;
     private final RunShowRepository runShowRepository;
     private final BookingRepository bookingRepository;
-    private final MemberService memberService;
+    private final ShowRepository showRepository;
     public RunShowFindDto findRunShowById(Long runShowId){
-        return RunShowFindDto.of(runShowRepository.findRunShowById(runShowId));
+        RunShow runShow = runShowRepository.findRunShowById(runShowId);
+        return RunShowFindDto.of(showRepository.findShowById(runShow.getShow().getId()), runShowRepository.findRunShowById(runShowId));
     }
 
     @Transactional
@@ -28,5 +35,22 @@ public class RunShowService {
         Member member = memberRepository.findMemberById(memberId);
         RunShow runShow = runShowRepository.findRunShowById(runShowId);
         return bookingRepository.save(Booking.create(member,runShow)).getId();
+    }
+
+    @Transactional(readOnly = true)
+    public List<RunShowSearchDto> findRunShowByKeyWord(String query) {
+        List<Show> shows = showRepository.findByTitleContaining(query);
+        List<RunShowSearchDto> runShowsFromTitles = shows.stream()
+                .flatMap(show -> runShowRepository.findByShowId(show.getId()).stream())
+                .map(runShow -> RunShowSearchDto.of(showRepository.findShowById(runShow.getShow().getId()), runShow))
+                .collect(Collectors.toList());
+
+        List<RunShow> runShows = runShowRepository.findByLocationContaining(query);
+        List<RunShowSearchDto> runShowsFromLocations = runShows.stream()
+                .map(runShow -> RunShowSearchDto.of(showRepository.findShowById(runShow.getShow().getId()), runShow))
+                .toList();
+
+        runShowsFromTitles.addAll(runShowsFromLocations);
+        return runShowsFromTitles;
     }
 }
