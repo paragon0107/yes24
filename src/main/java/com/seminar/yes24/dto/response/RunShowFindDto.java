@@ -1,6 +1,7 @@
 package com.seminar.yes24.dto.response;
 
 import com.seminar.yes24.domain.RunShow;
+import com.seminar.yes24.domain.Show;
 import com.seminar.yes24.repository.RunShowRepository;
 
 public record RunShowFindDto(
@@ -14,16 +15,16 @@ public record RunShowFindDto(
         int filmRating,
         int runTime
 ) {
-    public static RunShowFindDto of(RunShow runShow){
+    public static RunShowFindDto of(Show show, RunShow runShow){
        return new RunShowFindDto(
                 runShow.getId(),
-                runShow.getGenre(),
-                runShow.getTitle(),
+                show.getGenre(),
+                show.getTitle(),
                 runShow.getPeriod(),
                 runShow.getLocation(),
                 runShow.getPlace(),
-                runShow.getImg(),
-                runShow.getFilmRate(),
+                show.getImg(),
+                show.getFilmRate(),
                 runShow.getRunTime()
         );
     }

@@ -1,6 +1,7 @@
 package com.seminar.yes24.dto.response;
 
 import com.seminar.yes24.domain.RunShow;
+import com.seminar.yes24.domain.Show;
 
 public record RunShowSearchDto(
         Long id,
@@ -11,15 +12,15 @@ public record RunShowSearchDto(
         String genre,
         String image
 ) {
-    public static RunShowSearchDto of(RunShow runShow){
+    public static RunShowSearchDto of(Show show, RunShow runShow){
         return new RunShowSearchDto(
                 runShow.getId(),
-                runShow.getTitle(),
+                show.getTitle(),
                 runShow.getPeriod(),
                 runShow.getLocation(),
                 runShow.getPlace(),
-                runShow.getGenre(),
-                runShow.getImg()
+                show.getGenre(),
+                show.getImg()
         );
     }
 }
