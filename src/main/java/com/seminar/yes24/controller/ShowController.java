@@ -24,8 +24,8 @@ public class ShowController {
         return ResponseDto.ok(showService.getShowRanking());
     }
 
-    @GetMapping("/show/rank")
-    public ResponseDto<List<List<ShowRankDto>>> getShowRank(){
-        return ResponseDto.ok(showService.getShowRanking());
-    }
+//    @GetMapping("/show/rank")
+//    public ResponseDto<List<List<ShowRankDto>>> getShowRank(){
+//        return ResponseDto.ok(showService.getShowRanking());
+//    }
 }

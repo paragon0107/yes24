@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ShowRepository extends JpaRepository<Show, Long> {
+public interface ShowRepository extends JpaRepository<Show, Long>,ShowRepositoryCustom {
     default Show findShowById(Long id) {
         return findById(id)
                 .orElseThrow(
