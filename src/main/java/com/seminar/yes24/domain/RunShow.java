@@ -33,4 +33,6 @@ public class RunShow{
 
     @Column(name = "likeCount", nullable = false)
     private int likeCount;
+
+
 }

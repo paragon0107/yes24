@@ -32,4 +32,7 @@ public class Show {
 
     @Column(name = "filmrate", nullable = false)
     private int filmRate;
+
+    @Column(name ="ticket_sales", nullable = false)
+    private int ticketSales;
 }

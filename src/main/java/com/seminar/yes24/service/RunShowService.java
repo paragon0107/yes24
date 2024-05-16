@@ -24,7 +24,7 @@ public class RunShowService {
     private final LikesRepository likesRepository;
     public RunShowFindDto findRunShowById(Long runShowId){
         RunShow runShow = runShowRepository.findRunShowById(runShowId);
-        return RunShowFindDto.of(showRepository.findShowById(runShow.getShow().getId()), runShowRepository.findRunShowById(runShowId));
+        return RunShowFindDto.of(showRepository.findShowById(runShow.getShow().getId()), runShowRepository.findRunShowById(runShowId));//<-?
     }
 
     @Transactional

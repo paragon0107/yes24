@@ -5,6 +5,7 @@ import com.seminar.yes24.dto.response.RunShowFindDto;
 import com.seminar.yes24.dto.response.RunShowLikeDto;
 import com.seminar.yes24.dto.response.RunShowSearchDto;
 import com.seminar.yes24.service.RunShowService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.dialect.unique.CreateTableUniqueDelegate;
 import org.springframework.web.bind.annotation.*;
@@ -45,4 +46,5 @@ public class RunShowController {
     ){
         return ResponseDto.ok(runShowService.likeRunShow(runShowId, memberId));
     }
+
 }
