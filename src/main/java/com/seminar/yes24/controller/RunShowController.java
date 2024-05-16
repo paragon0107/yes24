@@ -2,6 +2,7 @@ package com.seminar.yes24.controller;
 
 import com.seminar.yes24.dto.common.ResponseDto;
 import com.seminar.yes24.dto.response.RunShowFindDto;
+import com.seminar.yes24.dto.response.RunShowLikeDto;
 import com.seminar.yes24.dto.response.RunShowSearchDto;
 import com.seminar.yes24.service.RunShowService;
 import lombok.RequiredArgsConstructor;
@@ -35,5 +36,13 @@ public class RunShowController {
             @RequestParam String query
     ){
         return ResponseDto.ok(runShowService.findRunShowByKeyWord(query));
+    }
+
+    @PatchMapping("/runshow/like/{runShowId}")
+    public ResponseDto<RunShowLikeDto> likeRunShow(
+            @PathVariable Long runShowId,
+            @RequestHeader Long memberId
+    ){
+        return ResponseDto.ok(runShowService.likeRunShow(runShowId, memberId));
     }
 }
