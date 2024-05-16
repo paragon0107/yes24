@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,6 +18,10 @@ public class Show {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "show_id")
     private Long id;
+
+    @OneToMany(mappedBy = "show")
+    @Column(name = "run_show_Id")
+    private List<RunShow> runShow = new ArrayList<>();
 
     @Column(name = "title", nullable = false)
     private String title;
@@ -35,4 +40,6 @@ public class Show {
 
     @Column(name ="ticket_sales", nullable = false)
     private int ticketSales;
+
+
 }

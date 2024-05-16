@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface RunShowRepository extends JpaRepository<RunShow, Long> {
+public interface RunShowRepository extends JpaRepository<RunShow, Long> ,RunShowRepositoryCustom{
 
     default RunShow findRunShowById(Long id) {
         return findById(id)
