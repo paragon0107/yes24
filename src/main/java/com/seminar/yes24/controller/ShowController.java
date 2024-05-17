@@ -1,9 +1,8 @@
 package com.seminar.yes24.controller;
 
-import com.seminar.yes24.domain.RunShow;
+import com.seminar.yes24.domain.Show;
 import com.seminar.yes24.dto.common.ResponseDto;
 import com.seminar.yes24.dto.response.ShowDataDto;
-import com.seminar.yes24.dto.response.ShowRankDto;
 import com.seminar.yes24.dto.response.ShowRankingDto;
 import com.seminar.yes24.service.ShowService;
 import lombok.RequiredArgsConstructor;
@@ -22,12 +21,11 @@ public class ShowController {
         return ResponseDto.ok( showService.getMainCarasel());
     }
     @GetMapping("/show/rank")
-    public ResponseDto<List<RunShow>> getShowRanking(){
+    public ResponseDto <List<List<ShowRankingDto>>> getShowRanking(
+
+    ){
         return ResponseDto.ok(showService.getShowRanking());
     }
 
-//    @GetMapping("/show/rank")
-//    public ResponseDto<List<List<ShowRankDto>>> getShowRank(){
-//        return ResponseDto.ok(showService.getShowRanking());
-//    }
+
 }
