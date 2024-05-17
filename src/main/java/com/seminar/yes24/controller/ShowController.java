@@ -1,5 +1,6 @@
 package com.seminar.yes24.controller;
 
+import com.seminar.yes24.domain.RunShow;
 import com.seminar.yes24.dto.common.ResponseDto;
 import com.seminar.yes24.dto.response.ShowDataDto;
 import com.seminar.yes24.dto.response.ShowRankDto;
@@ -20,7 +21,8 @@ public class ShowController {
     public ResponseDto<List<ShowDataDto>> getMainCarasel(){
         return ResponseDto.ok( showService.getMainCarasel());
     }
-    public ResponseDto<List<List<ShowRankingDto>>> getShowRanking(){
+    @GetMapping("/show/rank")
+    public ResponseDto<List<RunShow>> getShowRanking(){
         return ResponseDto.ok(showService.getShowRanking());
     }
 

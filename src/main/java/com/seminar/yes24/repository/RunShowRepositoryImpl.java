@@ -1,33 +1,28 @@
 package com.seminar.yes24.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-
+import com.seminar.yes24.domain.RunShow;
 import com.seminar.yes24.domain.Show;
 import jakarta.persistence.EntityManager;
-import org.springframework.stereotype.Repository;
-
 
 import java.util.List;
 
 import static com.seminar.yes24.domain.QRunShow.runShow;
 import static com.seminar.yes24.domain.QShow.show;
 
-@Repository
-public class ShowRepositoryImpl implements ShowRepositoryCustom {
+public class RunShowRepositoryImpl implements RunShowRepositoryCustom{
     private final JPAQueryFactory queryFactory;
 
-    public ShowRepositoryImpl(EntityManager em) {
+    public RunShowRepositoryImpl(EntityManager em) {
         this.queryFactory = new JPAQueryFactory(em);
     }
 
-
-    public List<Show> getShowByGenre(String genre) {
-
-
+    public List<RunShow> geRunShowByShow(List<Show> shows){
         return queryFactory
-                .selectFrom(show)
-                .orderBy(show.ticketSales.asc())
-                .limit(3)
+                .select(runShow).distinct()
+                .from(runShow)
+                .leftJoin(runShow.show,show).fetchJoin()
+                .where(show.in(shows))
                 .fetch();
     }
 }
