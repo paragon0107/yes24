@@ -9,6 +9,9 @@ import com.seminar.yes24.repository.RunShowRepository;
 import com.seminar.yes24.repository.RunShowRepositoryImpl;
 import com.seminar.yes24.repository.ShowRepository;
 import com.seminar.yes24.repository.ShowRepositoryImpl;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import lombok.RequiredArgsConstructor;
@@ -34,16 +37,28 @@ public class ShowService {
         return shows.stream()
                 .map(show -> {
                     RunShow fastRunShow = runShowRepository.findEarliestRunShowByShowId(show.getId());
+                    String formattedPeriod = formatPeriod(fastRunShow.getPeriod());
                     return new ShowDataDto(
                             show.getId(),
                             show.getTitle(),
                             show.getSubTitle(),
                             show.getImg(),
-                            fastRunShow.getPeriod(),
+                            formattedPeriod,
                             fastRunShow.getPlace()
                     );
                 })
                 .collect(Collectors.toList());
+    }
+
+    private String formatPeriod(String period) {
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy. M. d");
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        String[] dates = period.split(" ~ ");
+        LocalDate startDate = LocalDate.parse(dates[0].trim(), inputFormatter);
+        LocalDate endDate = LocalDate.parse(dates[1].trim(), inputFormatter);
+        String formattedStartDate = startDate.format(outputFormatter);
+        String formattedEndDate = endDate.format(outputFormatter);
+        return formattedStartDate + formattedEndDate;
     }
 
     @Transactional(readOnly = true)
