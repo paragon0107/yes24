@@ -1,8 +1,12 @@
 package com.seminar.yes24.repository;
 
+import com.querydsl.core.QueryResults;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import com.seminar.yes24.domain.Show;
+import com.seminar.yes24.domain.enums.Genre;
+import com.seminar.yes24.dto.response.QShowRankingDto;
+import com.seminar.yes24.dto.response.ShowRankingDto;
 import jakarta.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
 
@@ -20,13 +24,21 @@ public class ShowRepositoryImpl implements ShowRepositoryCustom {
         this.queryFactory = new JPAQueryFactory(em);
     }
 
-
-    public List<Show> getShowByGenre(String genre) {
-
+    @Override
+    public List<ShowRankingDto> getShowByGenre(String genre) {
 
         return queryFactory
-                .selectFrom(show)
-                .orderBy(show.ticketSales.asc())
+                .from(show,runShow)
+                .distinct()
+                .select(new QShowRankingDto(
+                        show.id,
+                        show.title,
+                        runShow.period,
+                        runShow.place,
+                        show.genre,
+                        show.img
+                ))
+                .where(show.genre.eq(genre).and(runShow.show.eq(show)))
                 .limit(3)
                 .fetch();
     }

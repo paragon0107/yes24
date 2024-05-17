@@ -19,10 +19,6 @@ public class Show {
     @Column(name = "show_id")
     private Long id;
 
-    @OneToMany(mappedBy = "show")
-    @Column(name = "run_show_Id")
-    private List<RunShow> runShow = new ArrayList<>();
-
     @Column(name = "title", nullable = false)
     private String title;
 
@@ -37,9 +33,6 @@ public class Show {
 
     @Column(name = "filmrate", nullable = false)
     private int filmRate;
-
-    @Column(name ="ticket_sales", nullable = false)
-    private int ticketSales;
 
 
 }

@@ -5,18 +5,21 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+
 @Entity
 @Getter
 @Table(name = "runshow")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RunShow{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "runshow_id")
     private Long id;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "show_id", insertable = false, updatable = false)
+    @JoinColumn(name = "show_id")
     private Show show;
 
     @Column(name = "period" ,nullable = false)
