@@ -33,7 +33,7 @@ public class ShowService {
 
     @Transactional(readOnly = true)
     public List<ShowDataDto> getMainCarasel() {
-        List<Show> shows = showRepository.findAll(PageRequest.of(0, 5)).getContent();
+        List<Show> shows = showRepository.findAll(PageRequest.of(0, 12)).getContent();
         return shows.stream()
                 .map(show -> {
                     RunShow fastRunShow = runShowRepository.findEarliestRunShowByShowId(show.getId());
