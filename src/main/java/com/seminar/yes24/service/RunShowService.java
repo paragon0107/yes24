@@ -59,10 +59,12 @@ public class RunShowService {
         boolean isLike;
         if (likeOptional.isPresent()) {
             likesRepository.deleteByMemberAndRunShow(member, runShow);
+            runShow.decreaseLikeCount();
             isLike = false;
         } else {
             Like like = Like.create(member, runShow);
             likesRepository.save(like);
+            runShow.increaseLikeCount();
             isLike = true;
         }
         return RunShowLikeDto.of(isLike);

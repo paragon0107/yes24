@@ -37,5 +37,11 @@ public class RunShow{
     @Column(name = "likeCount", nullable = false)
     private int likeCount;
 
+    public void increaseLikeCount(){
+        this.likeCount++;
+    }
+    public void decreaseLikeCount(){
+        this.likeCount--;
+    }
 
 }

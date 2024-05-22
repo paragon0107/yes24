@@ -13,7 +13,8 @@ public record RunShowFindDto(
         String place,
         String imgUrl,
         int filmRating,
-        int runTime
+        int runTime,
+        int likeCount
 ) {
     public static RunShowFindDto of(Show show, RunShow runShow){
        return new RunShowFindDto(
@@ -25,7 +26,8 @@ public record RunShowFindDto(
                 runShow.getPlace(),
                 show.getImg(),
                 show.getFilmRate(),
-                runShow.getRunTime()
+                runShow.getRunTime(),
+               runShow.getLikeCount()
         );
     }
 }
