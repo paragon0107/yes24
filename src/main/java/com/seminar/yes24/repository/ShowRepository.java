@@ -19,7 +19,7 @@ public interface ShowRepository extends JpaRepository<Show, Long>,ShowRepository
                 );
     }
     List<Show> findByTitleContaining(String title);
-
+    public List<Show> findTop3ShowByGenre(String genre);
     @Query("SELECT DISTINCT new com.seminar.yes24.dto.response.ShowRankingDto(s.id,s.title,rs.period,rs.place,s.genre,s.img)  FROM Show s Join RunShow rs ON rs.show = s WHERE s.genre = :genre")
     public List<ShowRankingDto> getShowByTest(String genre);
 }

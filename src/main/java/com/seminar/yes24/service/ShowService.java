@@ -41,7 +41,7 @@ public class ShowService {
                 .map(show -> {
                     RunShow fastRunShow = runShowRepository.findEarliestRunShowByShowId(show.getId());
                     String formattedPeriod = formatPeriod(fastRunShow.getPeriod());
-                    System.out.println(formattedPeriod);
+
                     return new ShowDataDto(
                             show.getId(),
                             show.getTitle(),
@@ -67,10 +67,24 @@ public class ShowService {
 
     @Transactional(readOnly = true)
     public List<ShowRankingDto> getShowRanking(){
-        List<ShowRankingDto> result = new ArrayList<>();
-        Arrays.stream(Genre.values())
-                //.forEach(genre -> result.addAll(showRepositoryImpl.getShowByGenre(genre.getGenreName())));
-                .forEach(genre -> result.addAll(DeduplicationUtils.deduplication(showRepository.getShowByTest(genre.getGenreName()),ShowRankingDto::getId).subList(0,3)));
-        return result;
+        List<Show> shows = new ArrayList<>();
+        Arrays.stream(Genre.values()).forEach(genre -> shows.addAll(showRepository.findTop3ShowByGenre(genre.getGenreName())));
+
+        //List<ShowRankingDto> result = new ArrayList<>();
+        //Arrays.stream(Genre.values())
+        //        .forEach(genre -> result.addAll(showRepositoryImpl.getShowByGenre(genre.getGenreName())));
+                //.forEach(genre -> result.addAll(DeduplicationUtils.deduplication(showRepository.getShowByTest(genre.getGenreName()),ShowRankingDto::getId).subList(0,3)));
+        return shows.stream()
+                .map(show -> {
+                    RunShow fastRunShow = runShowRepository.findEarliestRunShowByShowId(show.getId());
+                    return new ShowRankingDto(
+                            show.getId(),
+                            show.getTitle(),
+                            fastRunShow.getPeriod(),
+                            fastRunShow.getPlace(),
+                            show.getGenre(),
+                            show.getImg()
+                            );
+                }).collect(Collectors.toList());
     }
 }
