@@ -15,6 +15,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Hibernate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -65,9 +66,11 @@ public class ShowService {
     }
 
     @Transactional(readOnly = true)
-    public List<List<ShowRankingDto>> getShowRanking(){
-        List<List<ShowRankingDto>> result = new ArrayList<>();
-        Arrays.stream(Genre.values()).forEach(genre -> result.add(showRepositoryImpl.getShowByGenre(genre.getGenreName())));
-       return result;
+    public List<ShowRankingDto> getShowRanking(){
+        List<ShowRankingDto> result = new ArrayList<>();
+        Arrays.stream(Genre.values())
+                .forEach(genre -> result.addAll(showRepositoryImpl.getShowByGenre(genre.getGenreName())));
+                //.forEach(genre -> result.addAll(DeduplicationUtils.deduplication(showRepository.getShowByTest(genre.getGenreName()),ShowRankingDto::getId).subList(0,3)));
+        return result;
     }
 }

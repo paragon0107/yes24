@@ -26,4 +26,5 @@ public interface RunShowRepository extends JpaRepository<RunShow, Long> ,RunShow
     }
     List<RunShow> findByShowId(Long showId);
     List<RunShow> findByLocationContaining(String location);
+
 }

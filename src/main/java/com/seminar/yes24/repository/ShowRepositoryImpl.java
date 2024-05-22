@@ -2,10 +2,12 @@ package com.seminar.yes24.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
+import com.seminar.yes24.domain.Show;
 import com.seminar.yes24.dto.response.QShowRankingDto;
 import com.seminar.yes24.dto.response.ShowRankingDto;
 import com.seminar.yes24.service.ShowService;
 import jakarta.persistence.EntityManager;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 
@@ -26,8 +28,7 @@ public class ShowRepositoryImpl implements ShowRepositoryCustom {
     public List<ShowRankingDto> getShowByGenre(String genre) {
 
         return queryFactory
-                .from(show,runShow)
-                .distinct()
+                .from(show)
                 .select(new QShowRankingDto(
                         show.id,
                         show.title,
@@ -36,8 +37,12 @@ public class ShowRepositoryImpl implements ShowRepositoryCustom {
                         show.genre,
                         show.img
                 ))
-                .where(show.genre.eq(genre).and(runShow.show.eq(show)))
-                .limit(3)
+                .leftJoin(runShow)
+                .on(runShow.show.eq(show))
+                .where(show.genre.eq(genre))
+                .distinct()
                 .fetch();
     }
+
+
 }

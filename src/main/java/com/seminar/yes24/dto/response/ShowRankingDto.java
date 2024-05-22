@@ -4,11 +4,14 @@ import com.querydsl.core.annotations.QueryProjection;
 import com.seminar.yes24.repository.ShowRepository;
 import com.seminar.yes24.service.ShowService;
 import lombok.Getter;
+import org.springframework.data.annotation.Id;
 
 @Getter
 public class ShowRankingDto {
 
+    @Id
     private Long id;
+
     private String title;
     private String period;
     private String place;
