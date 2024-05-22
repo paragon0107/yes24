@@ -69,8 +69,8 @@ public class ShowService {
     public List<ShowRankingDto> getShowRanking(){
         List<ShowRankingDto> result = new ArrayList<>();
         Arrays.stream(Genre.values())
-                .forEach(genre -> result.addAll(showRepositoryImpl.getShowByGenre(genre.getGenreName())));
-                //.forEach(genre -> result.addAll(DeduplicationUtils.deduplication(showRepository.getShowByTest(genre.getGenreName()),ShowRankingDto::getId).subList(0,3)));
+                //.forEach(genre -> result.addAll(showRepositoryImpl.getShowByGenre(genre.getGenreName())));
+                .forEach(genre -> result.addAll(DeduplicationUtils.deduplication(showRepository.getShowByTest(genre.getGenreName()),ShowRankingDto::getId).subList(0,3)));
         return result;
     }
 }
