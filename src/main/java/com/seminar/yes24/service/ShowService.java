@@ -34,29 +34,30 @@ public class ShowService {
     @Transactional(readOnly = true)
     public List<ShowDataDto> getMainCarasel() {
         List<Show> shows = showRepository.findAll(PageRequest.of(0, 12)).getContent();
-        List<ShowDataDto> showDataDtos = new ArrayList<>();
-        shows.forEach(show -> {
-            System.out.println(show.getId());
+        System.out.println(shows.size());
+
+        return shows.stream()
+                .map(show -> {
                     RunShow fastRunShow = runShowRepository.findEarliestRunShowByShowId(show.getId());
                     String formattedPeriod = formatPeriod(fastRunShow.getPeriod());
-                    showDataDtos.add( new ShowDataDto(
+                    System.out.println(formattedPeriod);
+                    return new ShowDataDto(
                             show.getId(),
                             show.getTitle(),
                             show.getSubTitle(),
                             show.getImg(),
                             formattedPeriod,
                             fastRunShow.getPlace()
-                    ));
-            System.out.println(showDataDtos.size());
-                });
-        return showDataDtos;
+                    );
+                })
+                .collect(Collectors.toList());
     }
 
-    public  static String formatPeriod(String period) {
+    public static String formatPeriod(String period) {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy.M.d");
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
         String[] dates = period.split(" ~ ");
-       LocalDate startDate = LocalDate.parse(dates[0].trim(), inputFormatter);
+        LocalDate startDate = LocalDate.parse(dates[0].trim(), inputFormatter);
         LocalDate endDate = LocalDate.parse(dates[1].trim(), inputFormatter);
         String formattedStartDate = startDate.format(outputFormatter);
         String formattedEndDate = endDate.format(outputFormatter);
