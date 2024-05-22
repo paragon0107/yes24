@@ -1,12 +1,10 @@
 package com.seminar.yes24.repository;
 
-import com.querydsl.core.QueryResults;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
-import com.seminar.yes24.domain.Show;
-import com.seminar.yes24.domain.enums.Genre;
 import com.seminar.yes24.dto.response.QShowRankingDto;
 import com.seminar.yes24.dto.response.ShowRankingDto;
+import com.seminar.yes24.service.ShowService;
 import jakarta.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
 

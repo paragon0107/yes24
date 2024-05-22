@@ -34,31 +34,33 @@ public class ShowService {
     @Transactional(readOnly = true)
     public List<ShowDataDto> getMainCarasel() {
         List<Show> shows = showRepository.findAll(PageRequest.of(0, 12)).getContent();
-        return shows.stream()
-                .map(show -> {
+        List<ShowDataDto> showDataDtos = new ArrayList<>();
+        shows.forEach(show -> {
+            System.out.println(show.getId());
                     RunShow fastRunShow = runShowRepository.findEarliestRunShowByShowId(show.getId());
                     String formattedPeriod = formatPeriod(fastRunShow.getPeriod());
-                    return new ShowDataDto(
+                    showDataDtos.add( new ShowDataDto(
                             show.getId(),
                             show.getTitle(),
                             show.getSubTitle(),
                             show.getImg(),
                             formattedPeriod,
                             fastRunShow.getPlace()
-                    );
-                })
-                .collect(Collectors.toList());
+                    ));
+            System.out.println(showDataDtos.size());
+                });
+        return showDataDtos;
     }
 
-    private String formatPeriod(String period) {
-        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy. M. d");
+    public  static String formatPeriod(String period) {
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy.M.d");
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
         String[] dates = period.split(" ~ ");
-        LocalDate startDate = LocalDate.parse(dates[0].trim(), inputFormatter);
+       LocalDate startDate = LocalDate.parse(dates[0].trim(), inputFormatter);
         LocalDate endDate = LocalDate.parse(dates[1].trim(), inputFormatter);
         String formattedStartDate = startDate.format(outputFormatter);
         String formattedEndDate = endDate.format(outputFormatter);
-        return formattedStartDate + formattedEndDate;
+        return formattedStartDate+formattedEndDate;
     }
 
     @Transactional(readOnly = true)
