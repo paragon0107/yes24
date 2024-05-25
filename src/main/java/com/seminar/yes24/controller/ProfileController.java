@@ -1,3 +1,5 @@
+package com.seminar.yes24.controller;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
