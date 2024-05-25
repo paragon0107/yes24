@@ -16,7 +16,7 @@ public class ProfileController {
 
     @GetMapping("/profile")
     public String getProfile() {
-        System.out.println("hit");
+        System.out.println("hit!");
         return Arrays.stream(env.getActiveProfiles())
                 .findFirst()
                 .orElse(NULL);
