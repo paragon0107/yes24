@@ -39,27 +39,6 @@ public class LogAop {
     }
 
 
-    private Method getMethod(JoinPoint joinPoint) {
-        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
-        return signature.getMethod();
-    }
-
-    private void logParameters(JoinPoint joinPoint) {
-        Object[] args = joinPoint.getArgs();
-        String[] parameterNames = ((MethodSignature) joinPoint.getSignature()).getParameterNames();
-
-        if (args.length == 0) {
-            log.info("No parameters");
-        } else {
-            for (int i = 0; i < args.length; i++) {
-                log.info("Parameter name: {}, type: {}, value: {}",
-                        parameterNames[i],
-                        args[i].getClass().getSimpleName(),
-                        args[i]);
-            }
-        }
-    }
-
 
 
 }
