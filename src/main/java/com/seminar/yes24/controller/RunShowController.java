@@ -1,5 +1,6 @@
 package com.seminar.yes24.controller;
 
+import com.seminar.yes24.aspect.annotation.DoAopError;
 import com.seminar.yes24.dto.common.ResponseDto;
 import com.seminar.yes24.dto.response.RunShowFindDto;
 import com.seminar.yes24.dto.response.RunShowLikeDto;
@@ -18,6 +19,7 @@ public class RunShowController {
     private final RunShowService runShowService;
 
     @GetMapping("/runshow/{runShowId}")
+    @DoAopError
     public ResponseDto<RunShowFindDto> getRunShowDetail(
             @PathVariable Long runShowId
     ){
@@ -33,6 +35,7 @@ public class RunShowController {
     }
 
     @GetMapping("/runshow/search")
+
     public ResponseDto<List<RunShowSearchDto>> getRunShowSearch(
             @RequestParam String query
     ){
